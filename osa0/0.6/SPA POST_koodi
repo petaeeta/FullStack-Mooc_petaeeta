@@ -1,0 +1,10 @@
+title SPA POST
+
+selain->palvelin: POST-pyyntö https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+palvelin-->selain: 201 created.
+
+note over selain:
+.js-tiedoston koodi suoritetaan lähetyksen yhteydessä, 
+joka muunmuassa piirtää notesit uudelleen
+ilman turhia lisäpyyntöjä palvelimelle.
+end note
