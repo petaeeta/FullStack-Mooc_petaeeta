@@ -1,0 +1,25 @@
+title Post-pyyntö
+
+selain->palvelin: POST-pyyntö osoitteeseen https://studies.cs.helsinki.fi/exampleapp/new_note
+palvelin-->selain: 302 Redirect lähettää GET osoitteeseen /exampleapp/notes
+selain->palvelin: GET-pyyntö https://studies.cs.helsinki.fi/exampleapp/notes
+palvelin-->selain: notes HTML-tekstitiedosto
+selain->palvelin: GET-pyyntö https://studies.cs.helsinki.fi/exampleapp/main.css
+palvelin-->selain: main.css
+selain->palvelin: GET-pyyntö https://studies.cs.helsinki.fi/exampleapp/main.js
+palvelin-->selain: main.js
+
+note over selain:
+Selain suorittaa .js filussa olevaa koodia, joka sisältää
+JSON-datan hakemisen.
+end note
+
+selain->palvelin: GET-pyyntö https://studies.cs.helsinki.fi/exampleapp/data.json
+palvelin-->selain: [{ content: "Esimerkkidataa", date: "2021-01-01" }, ...]
+
+note over selain:
+Tapahtumankäsittelijä renderöi JSON-muistiinpanot näytölle
+end note
+
+selain->palvelin: GET-pyyntö https://studies.cs.helsinki.fi/favicon.ico
+palvelin-->selain: favicon.ico
