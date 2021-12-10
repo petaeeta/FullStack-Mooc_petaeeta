@@ -1,0 +1,23 @@
+title Single Page App -haku
+
+selain->palvelin: GET-pyyntö https://studies.cs.helsinki.fi/exampleapp/spa
+palvelin-->selain: spa HTML-tekstitiedosto
+selain->palvelin: GET-pyyntö https://studies.cs.helsinki.fi/exampleapp/main.css
+palvelin-->selain: main.css
+selain->palvelin: GET-pyyntö https://studies.cs.helsinki.fi/exampleapp/spa.js
+palvelin-->selain: spa.js
+
+note over selain:
+Selain suorittaa .js filussa olevaa koodia, joka sisältää
+JSON-datan hakemisen.
+end note
+
+selain->palvelin: GET-pyyntö https://studies.cs.helsinki.fi/exampleapp/data.json
+palvelin-->selain: [{ content: "Esimerkkidataa", date: "2021-01-01" }, ...]
+
+note over selain:
+Tapahtumankäsittelijä renderöi JSON-muistiinpanot näytölle
+end note
+
+selain->palvelin: GET-pyyntö https://studies.cs.helsinki.fi/favicon.ico
+palvelin-->selain: favicon.ico
