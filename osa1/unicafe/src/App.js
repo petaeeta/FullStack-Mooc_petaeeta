@@ -37,8 +37,7 @@ const StatisticLine = ({ text, value, unit }) => {
   return(
     <tr>
       <td>{text}</td>
-      <td>{value}</td>
-      <td>{unit}</td>
+      <td>{value}{unit}</td>
     </tr>
   )
 }
