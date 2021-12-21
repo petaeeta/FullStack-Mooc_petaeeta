@@ -13,31 +13,52 @@ const App = () => {
 
   useEffect(() => {
     Persons
-    .getContacts()
-    .then(response => {
-      setPersons(response)
-    })
+      .getContacts()
+      .then(response => {
+        setPersons(response)
+      })
   }, [])
 
   const handleSubmit = (event) => {
     event.preventDefault()
 
-    if(persons.map((props) => props.name).includes(newName)) {
-      window.alert(`${newName} is already added to phonebook`)
+    if (persons.map((props) => props.name).includes(newName)) {
+      if (window.confirm(`${newName} is already added to phonebook. Would you like to replace the old number with a new one?`)) {
+        const oldContact = persons.find(person => person.name === newName)
+        const newContact = { ...oldContact, number: newNumber }
+
+        Persons
+          .updateContact(oldContact.id, newContact)
+          .then(response => {
+            setPersons(persons.map(contacts => contacts.id !== oldContact.id ? contacts : response))
+            setNewName('')
+            setNewNumber('')
+          })
+      }
     }
     else {
       const newPerson = {
         name: newName,
         number: newNumber
       }
-      
+
       Persons
-      .addContact(newPerson)
-      .then(response => {
-        setPersons(persons.concat(newPerson))
-        setNewName('')
-        setNewNumber('')
-      })
+        .addContact(newPerson)
+        .then(response => {
+          setPersons(persons.concat(response))
+          setNewName('')
+          setNewNumber('')
+        })
+    }
+  }
+
+  const handleDeletion = (name, id) => {
+    if (window.confirm(`Delete ${name}?`)) {
+      Persons
+        .deleteContact(id)
+        .then(() => {
+          setPersons(persons.filter(item => item.id !== id))
+        })
     }
   }
 
@@ -58,19 +79,24 @@ const App = () => {
     <div>
       <h1>Phonebook</h1>
 
-      <Filtering onChangeFunction={handleFiltering}/>
+      <Filtering onChangeFunction={handleFiltering} />
 
-      <AddContactForm 
-      onSubmitFunction={handleSubmit} 
-      nameChangeHandler={nameValueChange}
-      numberChangeHandler={numberValueChange}
-      nameValue={newName}
-      numberValue={newNumber}
+      <AddContactForm
+        onSubmitFunction={handleSubmit}
+        nameChangeHandler={nameValueChange}
+        numberChangeHandler={numberValueChange}
+        nameValue={newName}
+        numberValue={newNumber}
       />
 
       <div>
         <h2>Contacts</h2>
-        {contactsToShow.map((props) => <Person name={props.name} number={props.number} key={props.name}/>)}
+        {contactsToShow.map(person =>
+          <Person
+            name={person.name}
+            number={person.number}
+            key={person.name}
+            deleteFunction={() => handleDeletion(person.name, person.id)} />)}
       </div>
     </div>
   )
