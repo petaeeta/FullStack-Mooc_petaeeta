@@ -1,6 +1,7 @@
 import React from 'react'
+import SpecificView from './SpecificView'
 
-const Country = ({filteredCountries}) => {
+const Country = ({filteredCountries, showFunction}) => {
 
     if (filteredCountries.length > 1){
         return(
@@ -8,6 +9,7 @@ const Country = ({filteredCountries}) => {
                 {filteredCountries.map((props) => 
                 <div key={props.cca2}>
                     {props.name.common}
+                    <button onClick={() => showFunction(props.name.common)}>show</button>
                 </div>)}
             </div>
         )
@@ -15,18 +17,10 @@ const Country = ({filteredCountries}) => {
 
     const country = filteredCountries[0]
     const values = Object.values(country.languages)
-    
-    return (
-      <div>
-        <h2>{country.name.common}</h2>
-        <div>Capital: {country.capital[0]}</div>
-        <div>Population: {country.population}</div>
-        <h3>Languges</h3>
-        <ul>
-            {values.map((props) => <li key={props}>{props}</li>)}
-        </ul>
-        <img src={country.flags.png} alt="Flag of the country"></img>
-      </div>
+    return(
+    <div>
+      <SpecificView country={country} values={values} />
+    </div>
     )
   }
 

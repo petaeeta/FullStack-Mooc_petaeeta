@@ -19,10 +19,14 @@ const App = () => {
     console.log(event.target.value)
   }
 
+  const showFunction = (name) => {
+    setFiltering(name)
+  }
+
   return(
     <div>
       <InputField onChangeFunction={handleFiltering} />
-      <FilteredCountries filter={filterField} countries={allCountries}/>
+      <FilteredCountries filter={filterField} countries={allCountries} showFunction={showFunction}/>
     </div>
   )
 }

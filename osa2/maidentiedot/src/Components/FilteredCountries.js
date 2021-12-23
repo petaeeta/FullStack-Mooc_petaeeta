@@ -1,7 +1,7 @@
 import React from 'react'
 import Country from './Country'
 
-const FilteredCountries = ({filter, countries}) => {
+const FilteredCountries = ({filter, countries, showFunction}) => {
     console.log(countries)
     if(filter === ''){
         return (
@@ -9,21 +9,24 @@ const FilteredCountries = ({filter, countries}) => {
         )
     }
 
-    // const filteredCountries = countries[0].name
     const filteredCountries = countries.filter((props) => props.name.common.toLowerCase().includes(filter.toLowerCase()))
-
-    console.log(filteredCountries.length)
-    if (filteredCountries.length > 10){
+    if(filteredCountries.length === 0){
+        return(
+            <div>
+                No countries found.
+            </div>
+        )
+    }
+    else if (filteredCountries.length > 10){
         return(
             <div>
                 Too many matches, specify further.
             </div>
         )
     }
-    
     return(
         <div>
-            <Country filteredCountries={filteredCountries}/>
+            <Country filteredCountries={filteredCountries} showFunction={showFunction}/>
         </div>
     )
 }
