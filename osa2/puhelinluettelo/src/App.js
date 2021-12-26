@@ -3,6 +3,7 @@ import Person from './Components/Person'
 import AddContactForm from './Components/AddContactForm'
 import Filtering from './Components/Filtering'
 import Persons from './Services/Persons'
+import Notification from './Components/Notification'
 
 const App = () => {
   const [persons, setPersons] = useState([])
@@ -10,12 +11,22 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [filtering, setFiltering] = useState('')
   const [showAll, setShowAll] = useState(true)
+  const [errorMessage, setErrorMessage] = useState('Some error happened.')
+  const [notificationType, setNotificationType] = useState('confirmation')
 
   useEffect(() => {
     Persons
       .getContacts()
       .then(response => {
         setPersons(response)
+      })
+      .catch(error => {
+        setNotificationType('error')
+        setErrorMessage(`Something went wrong: ${error}`)
+        setTimeout(() => {
+          setErrorMessage('')
+        }, 5000)
+
       })
   }, [])
 
@@ -34,6 +45,14 @@ const App = () => {
             setNewName('')
             setNewNumber('')
           })
+          .catch(error => {
+            setNotificationType('error')
+            setErrorMessage(`Something went wrong: ${error}`)
+            setTimeout(() => {
+              setErrorMessage('')
+            }, 5000)
+            setPersons(persons.filter(person => person.id !== oldContact.id))
+          })
       }
     }
     else {
@@ -48,6 +67,21 @@ const App = () => {
           setPersons(persons.concat(response))
           setNewName('')
           setNewNumber('')
+          setNotificationType('confirmation')
+          setErrorMessage(
+            `Contact ${newPerson.name} added successfully.`
+          )
+          setTimeout(() => {
+            setErrorMessage('')
+          }, 5000)
+        })
+        .catch(error => {
+          setNotificationType('error')
+          setErrorMessage(`Something went wrong: ${error}`)
+          setTimeout(() => {
+            setErrorMessage('')
+          }, 5000)
+
         })
     }
   }
@@ -58,6 +92,15 @@ const App = () => {
         .deleteContact(id)
         .then(() => {
           setPersons(persons.filter(item => item.id !== id))
+        })
+        .catch(error => {
+          setNotificationType('error')
+          setErrorMessage(`Something went wrong: ${error}`)
+          setTimeout(() => {
+            setErrorMessage('')
+          }, 5000)
+          setPersons(persons.filter(person => person.id !== id))
+
         })
     }
   }
@@ -78,7 +121,7 @@ const App = () => {
   return (
     <div>
       <h1>Phonebook</h1>
-
+      <Notification notification={notificationType} message={errorMessage}/>
       <Filtering onChangeFunction={handleFiltering} />
 
       <AddContactForm
