@@ -16,7 +16,6 @@ const App = () => {
 
   const handleFiltering = (event) => {
     setFiltering(event.target.value)
-    console.log(event.target.value)
   }
 
   const showFunction = (name) => {

@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import SpecificView from './SpecificView'
 
 const Country = ({filteredCountries, showFunction}) => {

@@ -2,7 +2,6 @@ import React from 'react'
 import Country from './Country'
 
 const FilteredCountries = ({filter, countries, showFunction}) => {
-    console.log(countries)
     if(filter === ''){
         return (
             <div></div>

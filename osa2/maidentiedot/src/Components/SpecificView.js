@@ -5,13 +5,7 @@ const weatherStack = 'http://api.weatherstack.com/'
 const SpecificView = ({country, values}) => {
 
     const key = process.env.REACT_APP_MY_KEY
-    console.log(key)
-    console.log(country)
-    console.log(values)
-    console.log(`${weatherStack}current?access_key=${key}&query=${country.capital[0]}`)
-
     const [weatherData, setWeatherData] = useState({})
-
 
     useEffect(() => {
             axios.get(`${weatherStack}current?access_key=${key}&query=${country.capital[0]}`)
@@ -19,9 +13,20 @@ const SpecificView = ({country, values}) => {
             }, [])
 
 
-    if (Object.keys(weatherData).length === 0) {
+    // Mikäli WeatherStackista ei saada dataa esimerkiksi API-avaimen puuttuessa,
+    // palautetaan sama komponentti ilman WeatherStack-dataa.
+    if (Object.keys(weatherData).length === 0 || weatherData.success === false) {
         return(
-            null
+            <div>
+            <h2>{country.name.common}</h2>
+            <div>Capital: {country.capital[0]}</div>
+            <div>Population: {country.population}</div>
+            <h3>Languges</h3>
+            <ul>
+                {values.map((props) => <li key={props}>{props}</li>)}
+            </ul>
+            <img src={country.flags.png} alt="Flag of the country"></img>
+            </div>
         )
     }
 
@@ -41,7 +46,7 @@ const SpecificView = ({country, values}) => {
                 <strong>Temperature: </strong> {weatherData.current.temperature}
             </div>
             <div>
-                <img src={weatherData.current.weather_icons[0]}/>
+                <img src={weatherData.current.weather_icons[0]} alt={`Flag of ${country.name.common}`}/>
             </div>
             <div>
                 <strong>Wind: </strong> {weatherData.current.wind_speed} mph direction {weatherData.current.wind_degree}{weatherData.current.wind_dir}

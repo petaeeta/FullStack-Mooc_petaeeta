@@ -6,16 +6,6 @@
       "id": 2
     },
     {
-      "name": "Mary Poppendieck",
-      "number": "39-23-6423122",
-      "id": 4
-    },
-    {
-      "name": "Kalle Kakkarinen",
-      "number": "+358 420 6969",
-      "id": 5
-    },
-    {
       "name": "Mauri Pekkarinen",
       "number": "+358 69 696969",
       "id": 6
@@ -26,8 +16,8 @@
       "id": 7
     },
     {
-      "name": "Tino Pakarinen",
-      "number": "+358 50 254387",
+      "name": "Kalle Stern",
+      "number": "456313545",
       "id": 8
     }
   ]

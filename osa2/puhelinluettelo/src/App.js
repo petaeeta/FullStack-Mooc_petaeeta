@@ -11,7 +11,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [filtering, setFiltering] = useState('')
   const [showAll, setShowAll] = useState(true)
-  const [errorMessage, setErrorMessage] = useState('Some error happened.')
+  const [errorMessage, setErrorMessage] = useState('')
   const [notificationType, setNotificationType] = useState('confirmation')
 
   useEffect(() => {
