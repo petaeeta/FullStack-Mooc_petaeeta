@@ -1,5 +1,5 @@
 import axios from 'axios'
-const personsDB = 'http://localhost:3001/persons'
+const personsDB = 'http://localhost:3001/api/persons/'
 
 
 const getContacts = () => {
@@ -11,11 +11,11 @@ const addContact = (newPerson) => {
 }
 
 const updateContact = (id, newPerson) => {
-    return axios.put(`${personsDB}/${id}`, newPerson).then(response => response.data)
+    return axios.put(`${personsDB}${id}`, newPerson).then(response => response.data)
 }
 
 const deleteContact = (id) => {
-    return axios.delete(`http://localhost:3001/persons/${id}`).then(response => response)
+    return axios.delete(`${personsDB}${id}`).then(response => response)
 }
 
 // Kääntäjä ei pitänyt siitä että default exportataan nimeämätön olio:
