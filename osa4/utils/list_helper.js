@@ -21,7 +21,6 @@ const favoriteBlog = (blogs) => {
     let favorite = {}
     blogs.forEach(blog => {
         if(Object.keys(favorite).length === 0 || favorite.likes < blog.likes){
-            console.log("we were here")
             favorite = {...blog}
         }
     })
