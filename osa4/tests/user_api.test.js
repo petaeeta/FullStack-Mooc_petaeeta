@@ -9,16 +9,25 @@ describe('Database has one prior user', () => {
 
     beforeEach(async () => {
         await User.deleteMany({})
-        const hash = await bcrypt.hash('salasana', 10)
-        const user = new User({ username: 'ExampleUserName', name: 'ExampleName', passwordHash: hash})
-        await user.save()
+        const user = { 
+          username: 'ExampleUserName', 
+          name: 'ExampleName',
+          password: 'salasana'
+        }
+        await api.post('/api/users').send(user)
+        const newUser = {
+          username: 'Ciri',
+          name: 'Cirilla Fiona Elen Riannon',
+          password: 'axii'
+        }
+        await api.post('/api/users').send(newUser)
     })
     
     test('Addition of a valid user', async () => {
         const newUser = {
-            username: 'Ciri',
-            name: 'Cirilla Fiona Elen Riannon',
-            password: 'axii'
+            username: 'Kakex',
+            name: 'Kalle Kerttula',
+            password: 'pwned'
         }
         await api.post('/api/users')
         .send(newUser)
@@ -27,15 +36,15 @@ describe('Database has one prior user', () => {
 
         let Db = await User.find({})
         Db = Db.map(user => user.toJSON())
-        expect(Db).toHaveLength(2)
+        expect(Db).toHaveLength(3)
         expect(Db.map(user => user.username)).toContain(newUser.username)
 
     })
 
     test('Addition of an invalid user', async () => {
         const newUser = {
-            username: 'Ciri',
-            name: 'Cirilla Fiona Elen Riannon',
+            username: 'The White Wolf',
+            name: 'Geralt Of Rivia',
             password: 'axi'
         }
         await api.post('/api/users')
@@ -45,9 +54,19 @@ describe('Database has one prior user', () => {
 
         let Db = await User.find({})
         Db = Db.map(user => user.toJSON())
-        expect(Db).toHaveLength(1)
+        expect(Db).toHaveLength(2)
         expect(Db.map(user => user.username)).not.toContain(newUser.username)
+    })
 
+    test('Addition of an otherwise valid user with a duplicate name', async () => {
+        const duplicateUser = {
+            username: 'Ciri',
+            name: 'Swallow',
+            password: 'axii'
+        }
+        await api.post('/api/users')
+        .send(duplicateUser)
+        .expect(400)
     })
 })
 

@@ -119,7 +119,6 @@ describe('modifying an existing blog', () => {
 
   test('changing the likes of a post', async () => {
     const modBlog = await Blog.findOne({ title: material.blogs[0].title})
-    logger.info(modBlog)
     expect(modBlog.likes).toBe( material.blogs[0].likes)
 
     const newLikes = {
@@ -144,7 +143,6 @@ describe('modifying an existing blog', () => {
     }
 
     const initialAmount = (await material.blogsInDb()).length
-    console.log(initialAmount)
   
     const blog = await api
     .post('/api/blogs')
