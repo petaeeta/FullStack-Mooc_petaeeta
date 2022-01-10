@@ -96,4 +96,23 @@ describe('favorite', () => {
     test('of a list with no blogs', () => {
         expect(listHelper.favoriteBlog([])).toEqual({})
     })
+
+})
+
+describe('lodash tests', () => {
+  test('an author with most blogs out of a list gets returned', () => {
+    const result = listHelper.mostBlogs(blogs)
+    expect(result).toEqual({
+      author: 'Robert C. Martin',
+      blogs: 3
+    })
+  })
+
+  test('an author with most likes out of a list gets returned', () => {
+    const result = listHelper.mostLikes(blogs)
+    expect(result).toEqual({
+      author: 'Edsger W. Dijkstra',
+      likes: 17,
+    })
+  })
 })
