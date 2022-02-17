@@ -17,7 +17,7 @@ const Blog = ({ blog, likePost, removePost, user }) => {
   const hiddenComponent = () => {
     return(
       <div style={blogStyle}>
-        <strong>Title:</strong> {blog.title}
+        {blog.title} - {blog.author}
         <button onClick={toggleVisibility}>view</button>
       </div>
     )
@@ -27,18 +27,18 @@ const Blog = ({ blog, likePost, removePost, user }) => {
     return(
       <div style={blogStyle}>
         <div>
-          <strong>Title:</strong> {blog.title}
+          {blog.title} - {blog.author}
           <button onClick={toggleVisibility}>hide</button>
         </div>
 
         <div>
-          <strong>URL:</strong> {blog.url}
+          {blog.url}
         </div>
         <div>
-          <strong>Likes:</strong> {blog.likes} <button onClick={handleLike}>like</button>
+          likes {blog.likes} <button onClick={handleLike}>like</button>
         </div>
         <div>
-          <strong>Author:</strong> {blog.author}
+          {blog.user[0]?.username}
         </div>
         {user.username === blog.user[0]?.username ? removeButton() : null}
       </div>
