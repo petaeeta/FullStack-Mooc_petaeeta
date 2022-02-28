@@ -8,8 +8,8 @@ import Togglable from './components/Togglable'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
-  const [username, setUsername] = useState('kenraali gaggens')
-  const [password, setPassword] = useState('secret')
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
   const [errorMessage, setErrorMessage] = useState(null)
   const [errorMessageType, setErrorMessageType] = useState('info')
@@ -142,6 +142,7 @@ const App = () => {
         <Notification message={errorMessage} messageType={errorMessageType}/>
         username
         <input
+          id='username'
           type="text"
           value={username}
           name="Username"
@@ -151,13 +152,14 @@ const App = () => {
       <div>
         password
         <input
+          id='password'
           type="password"
           value={password}
           name="Password"
           onChange={({ target }) => setPassword(target.value)}
         />
       </div>
-      <button type="submit">login</button>
+      <button type="submit" id="login-button">login</button>
     </form>
   )
 
