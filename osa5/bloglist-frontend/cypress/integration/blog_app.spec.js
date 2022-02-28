@@ -107,50 +107,5 @@ describe('Blog app', function () {
       cy.get('html').should('not.contain', 'ExampleTitle')
       cy.get('html').should('not.contain', 'ExampleAuthor')
     })
-
-    it.only('blogs are ordered correctly', function () {
-      const post = {
-        url: 'ExampleUrl',
-        title: 'ExampleTitle',
-        author: 'ExampleAuthor'
-      }
-      const post2 = {
-        url: 'ExampleUrl2',
-        title: 'ExampleTitle2',
-        author: 'ExampleAuthor2'
-      }
-      const post3 = {
-        url: 'ExampleUrl3',
-        title: 'ExampleTitle3',
-        author: 'ExampleAuthor3'
-      }
-      cy.createPost(post)
-      cy.createPost(post2)
-      cy.createPost(post3)
-
-      cy.get('.titleAuthor').should('have.length', 3)
-
-      cy.get('.titleAuthor').then(posts => {
-        cy.wrap(posts[0]).should('contain', 'ExampleTitle - ExampleAuthor')
-        cy.wrap(posts[1]).should('contain', 'ExampleTitle2 - ExampleAuthor2')
-        cy.wrap(posts[2]).should('contain', 'ExampleTitle3 - ExampleAuthor3')
-      })
-
-      cy.get('.viewButton').each(buttons => {
-        cy.wrap(buttons).click()
-      })
-      cy.get('.likeButton').then( buttons => {
-
-        cy.wrap(buttons[0]).as('first').click()
-        cy.wait('@first')
-        cy.wrap(buttons[0]).as('first').click()
-        
-      })
-      cy.get('.titleAuthor').then(posts => {
-        cy.wrap(posts[0]).should('contain', 'ExampleTitle3 - ExampleAuthor3')
-        cy.wrap(posts[1]).should('contain', 'ExampleTitle - ExampleAuthor')
-        cy.wrap(posts[2]).should('contain', 'ExampleTitle2 - ExampleAuthor2')
-      })
-    })
   })
 })
