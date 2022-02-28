@@ -16,9 +16,14 @@ const Blog = ({ blog, likePost, removePost, user }) => {
 
   const hiddenComponent = () => {
     return(
-      <div style={blogStyle}>
+      <div
+        style={blogStyle}
+        className='titleAuthor'
+      >
         {blog.title} - {blog.author}
-        <button onClick={toggleVisibility}>view</button>
+        <button
+          onClick={toggleVisibility}
+          className='viewButton'>view</button>
       </div>
     )
   }
@@ -26,7 +31,7 @@ const Blog = ({ blog, likePost, removePost, user }) => {
   const visibleComponent = () => {
     return(
       <div style={blogStyle}>
-        <div>
+        <div className='titleAuthor'>
           {blog.title} - {blog.author}
           <button onClick={toggleVisibility}>hide</button>
         </div>
@@ -35,7 +40,7 @@ const Blog = ({ blog, likePost, removePost, user }) => {
           {blog.url}
         </div>
         <div>
-          likes {blog.likes} <button onClick={handleLike}>like</button>
+          likes {blog.likes} <button onClick={handleLike} className='likeButton'>like</button>
         </div>
         <div>
           {blog.user[0]?.username}
