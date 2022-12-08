@@ -1,0 +1,24 @@
+{
+  "persons": [
+    {
+      "name": "Ada Lovelace",
+      "number": "6969696969",
+      "id": 2
+    },
+    {
+      "name": "Mauri Pekkarinen",
+      "number": "+358 69 696969",
+      "id": 6
+    },
+    {
+      "name": "Ville Peltonen",
+      "number": "+358 20 248923",
+      "id": 7
+    },
+    {
+      "name": "Kalle Stern",
+      "number": "456313545",
+      "id": 8
+    }
+  ]
+}
